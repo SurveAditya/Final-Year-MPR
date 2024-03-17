@@ -1,0 +1,32 @@
+/* bgcolor.css */
+
+/* Default theme */
+body {
+    background-color: #f0f0f0; /* Light gray background */
+    color: #333333; /* Dark text color */
+  }
+  
+  /* Dark theme */
+  body.dark {
+    background-color: #1a1a1a; /* Dark background */
+    color: #ffffff; /* Light text color */
+  }
+  
+  /* Pink theme */
+  body.pink {
+    background-color: #ff66b2; /* Pink background */
+    color: #000000; /* Black text color */
+  }
+  
+  /* Blue theme */
+  body.blue {
+    background-color: #3399ff; /* Blue background */
+    color: #ffffff; /* Light text color */
+  }
+  
+  /* Yellow theme */
+  body.yellow {
+    background-color: #ffff66; /* Yellow background */
+    color: #000000; /* Black text color */
+  }
+  
