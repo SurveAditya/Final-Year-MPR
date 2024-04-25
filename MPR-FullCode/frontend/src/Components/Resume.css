@@ -109,3 +109,14 @@ main {
   margin-left: 240px;
   margin-bottom: 50px;
 }
+
+.fetch_btn{
+  color: white;
+  width: 100px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  background-color: #2563EB;
+  margin-left: 10px;
+  margin-bottom: 50px;
+}

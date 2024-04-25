@@ -51,7 +51,10 @@ def check_validity(udid_image):
     ocr_status = ocr_result.lower()
 
     if "unique disability id" in ocr_status and "government of india" in ocr_status and re.search(pattern, ocr_status):
-        return "Authorized", re.findall(name_pattern, ocr_result)[0][0], re.findall(year_pattern, ocr_result)[0]
+        global verified_name, verified_year
+        verified_name = re.findall(name_pattern, ocr_result)[0][0]
+        verified_year = re.findall(year_pattern, ocr_result)[0]
+        return "Authorized", verified_name, verified_year
     else:
         return "Unauthorized", None, None
 
@@ -71,7 +74,9 @@ async def verify_udid_image(request: Request):
     
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
-
+@app.get("/getdata")
+async def get_data():
+    return JSONResponse(content={"status": "Authorized", "name": verified_name, "year": verified_year})
 
 
 if __name__ == "__main__":

@@ -17,6 +17,8 @@ function Template3(props) {
     interests,
     qual,
     resume_preview_ref,
+    birthyear,
+    percentage,
   } = props;
   const cardRef = useRef(null);
 
@@ -45,6 +47,7 @@ function Template3(props) {
 <div class="container mx-auto  px-4" ref={cardRef}>
     <div class="bg-white p-6 rounded-lg shadow-lg">
         <h1 class="text-3xl font-semibold">{uname}</h1>
+        <h2 class="text-3xl font-semibold">{birthyear}</h2>
         <p class="text-gray-600">Web Developer</p>
 
         <hr class="my-4"/>
@@ -62,6 +65,11 @@ function Template3(props) {
 <h2 class="text-xl font-semibold mt-4 mb-2">Disablity Type</h2>
         <ul class="list-disc list-inside text-gray-700">
             <li> {disability}</li>
+
+        </ul>
+        <h2 class="text-xl font-semibold mt-4 mb-2">Disablity Percentage</h2>
+        <ul class="list-disc list-inside text-gray-700">
+            <li> {percentage}</li>
 
         </ul>
         <h2 class="text-xl font-semibold mt-4 mb-2">Experience</h2>

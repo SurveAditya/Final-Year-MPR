@@ -60,6 +60,8 @@ function ResumeMaker() {
   const [uname, setName] = useState("");
   const [qual, setQual] = useState("");
   const [hobbies, setHobbies] = useState("");
+  const [birthyear, setBirthyear] = useState("");
+  const [percentage, setpercentage] = useState("");
   const [achieves, setAchieves] = useState("");
   const [interests, setInterests] = useState("");
   const [disability, setDisabilities] = useState("");
@@ -86,6 +88,8 @@ const handleSubmit =async () => {
         disabilityType: disability,
         email: processedEmail,
         contact: contact,
+        disabilityPercentage: percentage,
+        birthYear: birthyear,
         userId: localStorage.getItem("userId"),
       }),
     })
@@ -230,22 +234,41 @@ const handleSubmit =async () => {
       setDisabilities(data.disabilityType);
       setEmail(data.email);
       setContact(data.contact);
+      setpercentage(data.disabilityPercentage);
+      setBirthyear(data.birthYear);
     })
     .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    gatherData();
-  }
-  ,[]);
+  const handleClick = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/getdata');
+      const data = await response.json();
+      
+      if (data.status === "Authorized") {
+        setName(data.name);
+        setBirthyear(data.year);
+      } else {
+        console.error("Unauthorized access");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
 
   return (
     <div>
     <div className="flex justify-center  pt-10">
       <div className="rounded  shadow-lg p-2 text-2xl font-['Open_Sans'] ">
         <p className="text-4xl font-bold p-2 text-left space-x-5 pb-8">
-          Create your resume here
+          Create your resume here!
         </p>
+        
+        <button
+                  className="fetch_btn"
+                  onClick={handleClick}
+                >Fetch</button>
         <div className="  ">
           <div id="input_fields_container" className="space-y-6 space-x-2">
             <div>
@@ -257,6 +280,7 @@ const handleSubmit =async () => {
                     className="inputs"
                     id="first_name"
                     aria-label="What is Your Name?"
+
                     onChange={(e) => {
                       setName(e.target.value);
                     }}
@@ -279,6 +303,38 @@ const handleSubmit =async () => {
                   />
                 </div>
               </div>
+
+              <div className="flex justify-between">
+                <div className="w-1/2">
+                  <h3 className="input_labels">Birth Year</h3>
+                  <input
+                    type="text"
+                    className="inputs"
+                    aria-label="What your birth year?"
+                    id="first_name"
+                    onChange={(e) => {
+                      setBirthyear(e.target.value);
+                    }}
+                    // onFocus={() => start_mic("hobby")}
+                    value={birthyear}
+                  />
+                </div>
+                <div className="w-1/2">
+                  <h3 className="input_labels">Disability Percentage</h3>
+                  <input
+                    type="text"
+                    className="inputs"
+                    aria-label="What is your disability percentage?"
+                    id="last_name"
+                    onChange={(e) => {
+                      setpercentage(e.target.value);
+                    }}
+                    // onFocus={() => start_mic("achievements")}
+                    value={percentage}
+                  />
+                </div>
+              </div>
+
 
               <div className="flex justify-between">
                 <div className="w-1/2">
@@ -402,6 +458,8 @@ const handleSubmit =async () => {
           achieves={achieves}
           email={email}
           qual={qual}
+          birthyear={birthyear}
+          percentage={percentage}
           resume_preview_ref={resume_preview_ref}/>  
     </div>
     
@@ -420,6 +478,8 @@ const handleSubmit =async () => {
           achieves={achieves}
           email={email}
           qual={qual}
+          birthyear={birthyear}
+          percentage={percentage}
           resume_preview_ref={resume_preview_ref}/>  
     </div>
     <h1 className="text-center text-2xl  pt-10 pb-4 font-semibold bg-slate-100">
